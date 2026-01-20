@@ -128,21 +128,20 @@ def logout_user(request: Request, response: Response, db: Session):
     )
     return {"message": "Logout successful"}
 
-    
+
 def logout_all_sessions(
     request: Request,
     response: Response,
     db: Session,
     user_id: str
 ):
-    # 1️⃣ Delete ALL refresh tokens of this user
+   
     db.query(RefreshToken).filter(
         RefreshToken.user_id == user_id
     ).delete(synchronize_session=False)
 
     db.commit()
 
-    # 2️⃣ Delete cookies
     response.delete_cookie(
         key=settings.ACCESS_TOKEN_COOKIE_NAME,
         path="/"
