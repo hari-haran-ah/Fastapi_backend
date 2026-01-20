@@ -19,9 +19,7 @@ app.add_middleware(
     https_only=False
 )
 
-
 app.middleware("http")(token_refresh_middleware)
-
 
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
 app.include_router(oauth.router, prefix=settings.API_V1_PREFIX)
